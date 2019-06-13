@@ -3,10 +3,11 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "node server/index.js",
+    "start": "nodemon server/index.js",
     "lint": "eslint components server"
   },
   "dependencies": {
+    "@babel/register": "^7.4.4",
     "babel-core": "^6.26.3",
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
