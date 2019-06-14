@@ -30,7 +30,7 @@ export function addNote(req, res) {
   });
 }
 
-//Delete Note from Notes
+// Delete Note from Notes
 export function deleteNote(req, res) {
   const { noteId } = req.params;
 
@@ -40,7 +40,7 @@ export function deleteNote(req, res) {
         res.status(500).send(err);
       } else {
         Lane.update({ $pull: { notes: { $in: [note._id] } } }).exec(
-          (err, lane) => {
+          (err, lane) => { 
             if (err) {
               res.status(500).send(err);
             }
@@ -56,4 +56,26 @@ export function deleteNote(req, res) {
         res.status(200).end();
       });
     });
+}
+
+// Edit note
+export function editNote(req, res) {
+  const { note } = req.body;
+  const { noteId } = req.params;
+
+  if (!note || !note.task) {
+    res.status(403).end();
+  } else {
+    Note.findOneAndUpdate(
+      { id: noteId },
+      { task: note.task },
+      { new: true }
+    ).exec((err, newNote) => {
+      if (err || !newNote) {
+        res.status(500).send(err);
+      } else {
+        res.json(note);
+      }
+    });
+  }
 }

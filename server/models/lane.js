@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 mongoose.plugin(schema => {
-  schema.options.usePushEach = true;
+  schema.options.usePushEach = true; // eslint-disable-line no-console
 });
 
 const laneSchema = new Schema({
