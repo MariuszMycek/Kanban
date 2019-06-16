@@ -55,10 +55,26 @@ export function updateLane(lane) {
   };
 }
 
+export function updateLaneRequest(lane) {
+  return dispatch => {
+    return callApi(`lanes/${lane.id}`, 'put', { ...lane }).then(resLane => {
+      dispatch(updateLane(resLane));
+    });
+  };
+}
+
 export function deleteLane(laneId) {
   return {
     type: DELETE_LANE,
     laneId,
+  };
+}
+
+export function deleteLaneRequest(laneId) {
+  return dispatch => {
+    return callApi(`lanes/${laneId}`, 'delete').then(() => {
+      dispatch(deleteLane(laneId));
+    });
   };
 }
 

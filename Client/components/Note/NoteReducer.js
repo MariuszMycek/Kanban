@@ -23,7 +23,7 @@ export default function notes(state = initialState, action) {
     }
 
     case EDIT_NOTE: {
-      note = { ...state[action.noteId], editing: true };
+      const note = { ...state[action.noteId], editing: true };
       return { ...state, [action.noteId]: note };
     }
 

@@ -32,9 +32,18 @@ export function createNoteRequest(note, laneId) {
 }
 
 export function updateNote(note) {
+  console.log(note);
   return {
     type: UPDATE_NOTE,
     note,
+  };
+}
+
+export function updateNoteRequest(note) {
+  return dispatch => {
+    return callApi(`notes/${note.id}`, 'put', { note }).then(noteResp => {
+      dispatch(updateNote(noteResp));
+    });
   };
 }
 
