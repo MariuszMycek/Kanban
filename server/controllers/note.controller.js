@@ -40,7 +40,7 @@ export function deleteNote(req, res) {
         res.status(500).send(err);
       } else {
         Lane.update({ $pull: { notes: { $in: [note._id] } } }).exec(
-          (err, lane) => { 
+          (err, lane) => {
             if (err) {
               res.status(500).send(err);
             }

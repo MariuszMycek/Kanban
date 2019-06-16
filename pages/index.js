@@ -7,7 +7,7 @@ import callApi from '../Client/util/apiCaller';
 import { normalize } from 'normalizr';
 import { lanes } from '../Client/util/schema';
 
-import { createLanes } from '../Client/components/Lane/LaneActions';
+import { createLanes, fetchLanes } from '../Client/components/Lane/LaneActions';
 
 import { createNotes } from '../Client/components/Note/NoteActions';
 
@@ -75,7 +75,8 @@ Home.getInitialProps = async ({ store }) => {
     store.dispatch(createLanes(normalizedLanes));
     store.dispatch(createNotes(notes));
   });
+
   return {};
 };
 
-export default connect()(Home);
+export default connect(state => state)(Home);

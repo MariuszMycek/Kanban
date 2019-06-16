@@ -1,8 +1,8 @@
 import callApi from '../../util/apiCaller';
-import { lanes } from '../../util/schema';
-import { normalize } from 'normalizr';
-import { createNotes } from '../Note/NoteActions';
-import store from '../../Redux/store';
+// import { lanes } from '../../util/schema';
+// import { normalize } from 'normalizr';
+// import { createNotes } from '../Note/NoteActions';
+// import store from '../../Redux/store';
 
 // Export Constants
 export const CREATE_LANE = 'CREATE_LANE';
