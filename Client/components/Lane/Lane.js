@@ -3,31 +3,15 @@ import PropTypes from 'prop-types';
 
 import Edit from '../Edit';
 import NotesContainer from '../Note/NotesContainer';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-
-// Import Style
-// import styles from './Lane.css';
 
 const Lane = props => {
-  const {
-    lane,
-    laneNotes,
-    updateLane,
-    addNote,
-    deleteLane,
-    editLane,
-    deleteNote,
-  } = props;
+  const { lane, laneNotes, updateLane, addNote, deleteLane, editLane } = props;
   const laneId = lane.id;
+
   return (
     <div className="Lane">
       <div className="LaneHeader">
-        <div className="LaneAddNote">
-          <button onClick={() => addNote({ task: 'New Note' }, laneId)}>
-            Add Note
-          </button>
-        </div>
+        <div className="LaneAddNote" />
         <Edit
           className="LaneName"
           editing={lane.editing}
@@ -35,18 +19,40 @@ const Lane = props => {
           onValueClick={() => editLane(laneId)}
           onUpdate={name => updateLane({ ...lane, name, editing: false })}
         />
-        <div className="LaneDelete">
-          <button
-            onClick={() => {
-              deleteLane(laneId);
-              // laneNotes.forEach(note => deleteNote(note.id, null));
-            }}
-          >
-            Remove Lane
-          </button>
-        </div>
       </div>
       <NotesContainer notes={laneNotes} laneId={laneId} />
+
+      <div className="LaneButtons">
+        <button onClick={() => addNote({ task: 'New Note' }, laneId)}>
+          Add Note
+        </button>
+        <button className="deleteButton" onClick={() => deleteLane(laneId)}>
+          Remove Lane
+        </button>
+      </div>
+      <style jsx>{`
+        .Lane {
+          height: calc(100vh - 105px);
+          min-width: 300px;
+          width: 300px;
+          margin: 0 10px;
+        }
+        .Lane:first-child{
+          margin-left: 0;
+        }
+        :global(.LaneName span.value) {
+          font-size: 24px;
+          font-weight: bold;
+        }
+        .LaneButtons {
+          padding: 10px 0;
+          display: flex;
+          justify-content: space-between;
+        }
+        .deleteButton:hover {
+          background: #f73e44;
+        }
+      `}</style>
     </div>
   );
 };

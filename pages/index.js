@@ -14,7 +14,7 @@ import { createNotes } from '../Client/components/Note/NoteActions';
 const Home = props => {
   return (
     <div>
-      <Head title="Home" />
+      <Head title="Kanban" />
       <Nav />
       <Kanban />
 
