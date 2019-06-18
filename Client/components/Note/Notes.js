@@ -12,7 +12,7 @@ const Notes = props => {
           id={note.id}
           key={note.id}
           editing={note.editing}
-          // className="note"
+          className="note"
         >
           <Edit
             editing={note.editing}
@@ -23,22 +23,22 @@ const Notes = props => {
           />
         </Note>
       ))}
-      <style jsx>
-        {`
+
+      <style jsx>{`
+        .notes {
+          height: calc(100% - 83px);
+          overflow-y: auto;
+          background: #dfe1e6;
+          padding: 0;
+          margin: 0;
+        }
+
+        @media (max-width: 768px) {
           .notes {
-            height: calc(100% - 83px);
-            overflow-y: auto;
-            background: #dfe1e6;
-            padding: 0;
-            margin: 0;
+            height: calc(100% - 85px);
           }
-          @media (max-width: 768px) {
-            .notes {
-              height: calc(100% - 85px);
-            }
-          }
-        `}
-      </style>
+        }
+      `}</style>
     </ul>
   );
 };

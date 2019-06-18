@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// Import Style
-// import styles from './Note.css';
-
 const Note = props => (
-  <li className="Note">
+  <li className="note">
     {props.children}
+
     <style jsx>{`
-      .Note {
+      .note {
         background: #f5f5f7;
         margin: 10px;
         border-radius: 3px;

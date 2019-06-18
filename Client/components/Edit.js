@@ -5,6 +5,7 @@ export default class Edit extends Component {
   constructor(props) {
     super(props);
   }
+
   checkEnter = e => {
     if (e.key === 'Enter') {
       this.finishEdit(e);
@@ -24,11 +25,13 @@ export default class Edit extends Component {
         <button className="delete" onClick={this.props.onDelete}>
           x
         </button>
+
         <style jsx>{`
           .delete-wrapper {
             position: relative;
             display: none;
           }
+
           .delete {
             position: absolute;
             right: 0;
@@ -39,6 +42,7 @@ export default class Edit extends Component {
             align-items: center;
             justify-content: center;
           }
+
           .delete:hover {
             background: #f73e44;
           }
@@ -55,12 +59,14 @@ export default class Edit extends Component {
           {value}
         </span>
         {onDelete ? this.renderDelete() : null}
+
         <style jsx>{`
           .value {
             display: block;
             padding: 5px;
             font-size: 14px;
           }
+          
           :global(.value-wrapper:hover .delete-wrapper) {
             display: block;
           }
@@ -79,6 +85,7 @@ export default class Edit extends Component {
           onKeyPress={this.checkEnter}
           className="textarea"
         />
+
         <style jsx>{`
           .textarea {
             width: 100%;
@@ -88,6 +95,7 @@ export default class Edit extends Component {
             border-radius: 3px;
             box-sizing: border-box;
           }
+
           .textarea:focus {
             border: none;
             outline: none;

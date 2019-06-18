@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import LaneContainer from './LaneContainer';
 
 const Lanes = props => {
@@ -10,17 +9,20 @@ const Lanes = props => {
         <LaneContainer className="lane" key={lane.id} lane={lane} />
       ))}
       <button
-        className="AddLane"
+        className="addLane"
         onClick={() => props.createLane({ name: 'New Lane' })}
       >
         Add Lane
       </button>
+
       <style jsx>{`
         .lanes {
           display: flex;
+          overflow-y: hidden;
           overflow-x: auto;
         }
-        .AddLane {
+
+        .addLane {
           margin: 10px;
           margin-top: 38px;
           width: 300px;

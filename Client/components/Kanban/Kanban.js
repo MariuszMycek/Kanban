@@ -9,7 +9,7 @@ import { createLaneRequest } from '../Lane/LaneActions';
 const Kanban = props => {
   return (
     <div>
-      <div className="lanes-container">
+      <div className="lanesContainer">
         <Lanes lanes={props.lanes} createLane={props.createLane} />
       </div>
 
@@ -46,7 +46,7 @@ const Kanban = props => {
           background-color: #3fa259;
         }
 
-        .lanes-container {
+        .lanesContainer {
           padding: 10px;
           max-width: 100vw;
         }

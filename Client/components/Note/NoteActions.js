@@ -7,6 +7,8 @@ export const DELETE_NOTE = 'DELETE_NOTE';
 export const EDIT_NOTE = 'EDIT_NOTE';
 export const CREATE_NOTES = 'CREATE_NOTES';
 
+import { deleteNoteFromLane } from '../Lane/LaneActions';
+
 // Export Actions
 export function createNotes(notesData) {
   return {
@@ -50,14 +52,14 @@ export function deleteNote(noteId, laneId) {
   return {
     type: DELETE_NOTE,
     noteId,
-    laneId,
   };
 }
 
 export function deleteNoteRequest(noteId, laneId) {
   return dispatch => {
     return callApi(`notes/${noteId}`, 'delete').then(() => {
-      dispatch(deleteNote(noteId, laneId));
+      dispatch(deleteNoteFromLane(laneId, noteId));
+      dispatch(deleteNote(noteId));
     });
   };
 }

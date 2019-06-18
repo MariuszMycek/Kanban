@@ -3,6 +3,7 @@ import React from 'react';
 const Nav = () => (
   <nav>
     <h2 className="header">Kanban</h2>
+    
     <style jsx>{`
       :global(body) {
         margin: 0;
@@ -10,12 +11,14 @@ const Nav = () => (
           Helvetica, sans-serif;
         background: #4bbf6b;
       }
+
       nav {
         text-align: center;
       }
+
       .header {
         background: #3fa25a;
-        color: #FAFCFB;
+        color: #fafcfb;
         margin: 0;
         padding: 20px;
       }

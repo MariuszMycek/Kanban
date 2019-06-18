@@ -9,11 +9,11 @@ const Lane = props => {
   const laneId = lane.id;
 
   return (
-    <div className="Lane">
-      <div className="LaneHeader">
-        <div className="LaneAddNote" />
+    <div className="lane">
+      <div className="laneHeader">
+        <div className="laneAddNote" />
         <Edit
-          className="LaneName"
+          className="laneName"
           editing={lane.editing}
           value={lane.name}
           onValueClick={() => editLane(laneId)}
@@ -21,8 +21,7 @@ const Lane = props => {
         />
       </div>
       <NotesContainer notes={laneNotes} laneId={laneId} />
-
-      <div className="LaneButtons">
+      <div className="laneButtons">
         <button onClick={() => addNote({ task: 'New Note' }, laneId)}>
           Add Note
         </button>
@@ -30,25 +29,30 @@ const Lane = props => {
           Remove Lane
         </button>
       </div>
+
       <style jsx>{`
-        .Lane {
+        .lane {
           height: calc(100vh - 105px);
           min-width: 300px;
           width: 300px;
           margin: 0 10px;
         }
-        .Lane:first-child{
+
+        .lane:first-child {
           margin-left: 0;
         }
-        :global(.LaneName span.value) {
+
+        :global(.laneName span.value) {
           font-size: 24px;
           font-weight: bold;
         }
-        .LaneButtons {
+
+        .laneButtons {
           padding: 10px 0;
           display: flex;
           justify-content: space-between;
         }
+
         .deleteButton:hover {
           background: #f73e44;
         }

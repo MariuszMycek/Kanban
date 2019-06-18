@@ -1,82 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Nav from '../Client/components/nav';
-import Head from '../Client/components/head';
+import Nav from '../Client/components/Nav';
+import Head from '../Client/components/Head';
 import Kanban from '../Client/components/Kanban/Kanban';
-import callApi from '../Client/util/apiCaller';
-import { normalize } from 'normalizr';
-import { lanes } from '../Client/util/schema';
 
-import { createLanes, fetchLanes } from '../Client/components/Lane/LaneActions';
-
-import { createNotes } from '../Client/components/Note/NoteActions';
-
-const Home = props => {
+const Home = () => {
   return (
     <div>
       <Head title="Kanban" />
       <Nav />
       <Kanban />
-
-      <style jsx>{`
-        .hero {
-          width: 100%;
-          color: #333;
-        }
-        .title {
-          margin: 0;
-          width: 100%;
-          padding-top: 80px;
-          line-height: 1.15;
-          font-size: 48px;
-        }
-        .title,
-        .description {
-          text-align: center;
-        }
-        .row {
-          max-width: 880px;
-          margin: 80px auto 40px;
-          display: flex;
-          flex-direction: row;
-          justify-content: space-around;
-        }
-        .card {
-          padding: 18px 18px 24px;
-          width: 220px;
-          text-align: left;
-          text-decoration: none;
-          color: #434343;
-          border: 1px solid #9b9b9b;
-        }
-        .card:hover {
-          border-color: #067df7;
-        }
-        .card h3 {
-          margin: 0;
-          color: #067df7;
-          font-size: 18px;
-        }
-        .card p {
-          margin: 0;
-          padding: 12px 0 0;
-          font-size: 13px;
-          color: #333;
-        }
-      `}</style>
     </div>
   );
-};
-
-Home.getInitialProps = async ({ store }) => {
-  await callApi('lanes').then(res => {
-    const normalized = normalize(res.lanes, lanes);
-    const { lanes: normalizedLanes, notes } = normalized.entities;
-    store.dispatch(createLanes(normalizedLanes));
-    store.dispatch(createNotes(notes));
-  });
-
-  return {};
 };
 
 export default connect(state => state)(Home);
