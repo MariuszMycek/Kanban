@@ -4,7 +4,16 @@ import Note from './Note';
 import Edit from '../Edit';
 
 const Notes = props => {
-  const { notes, laneId, editNote, updateNote, deleteNote } = props;
+  const {
+    notes,
+    laneId,
+    editNote,
+    updateNote,
+    deleteNote,
+    moveWithinLaneRequest,
+    moveWithinLane
+  } = props;
+
   return (
     <ul className="notes">
       {notes.map(note => (
@@ -13,6 +22,10 @@ const Notes = props => {
           key={note.id}
           editing={note.editing}
           className="note"
+          moveWithinLane={moveWithinLane}
+          moveWithinLaneRequest={moveWithinLaneRequest}
+          laneId={laneId}
+          dbId={note._id}
         >
           <Edit
             editing={note.editing}

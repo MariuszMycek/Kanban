@@ -4,62 +4,75 @@ import PropTypes from 'prop-types';
 import Edit from '../Edit';
 import NotesContainer from '../Note/NotesContainer';
 
-const Lane = props => {
-  const { lane, laneNotes, updateLane, addNote, deleteLane, editLane } = props;
-  const laneId = lane.id;
+class Lane extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    const {
+      connectDropTarget,
+      lane,
+      laneNotes,
+      updateLane,
+      addNote,
+      deleteLane,
+      editLane,
+    } = this.props;
+    const laneId = lane.id;
 
-  return (
-    <div className="lane">
-      <div className="laneHeader">
-        <div className="laneAddNote" />
-        <Edit
-          className="laneName"
-          editing={lane.editing}
-          value={lane.name}
-          onValueClick={() => editLane(laneId)}
-          onUpdate={name => updateLane({ ...lane, name, editing: false })}
-        />
+    return connectDropTarget(
+      <div className="lane">
+        <div className="laneHeader">
+          <div className="laneAddNote" />
+          <Edit
+            className="laneName"
+            editing={lane.editing}
+            value={lane.name}
+            onValueClick={() => editLane(laneId)}
+            onUpdate={name => updateLane({ ...lane, name, editing: false })}
+          />
+        </div>
+        <NotesContainer notes={laneNotes} laneId={laneId} />
+        <div className="laneButtons">
+          <button onClick={() => addNote({ task: 'New Note' }, laneId)}>
+            Add Note
+          </button>
+          <button className="deleteButton" onClick={() => deleteLane(laneId)}>
+            Remove Lane
+          </button>
+        </div>
+
+        <style jsx>{`
+          .lane {
+            height: calc(100vh - 105px);
+            min-width: 300px;
+            width: 300px;
+            margin: 0 10px;
+          }
+
+          .lane:first-child {
+            margin-left: 0;
+          }
+
+          :global(.laneName span.value) {
+            font-size: 24px;
+            font-weight: bold;
+          }
+
+          .laneButtons {
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+          }
+
+          .deleteButton:hover {
+            background: #f73e44;
+          }
+        `}</style>
       </div>
-      <NotesContainer notes={laneNotes} laneId={laneId} />
-      <div className="laneButtons">
-        <button onClick={() => addNote({ task: 'New Note' }, laneId)}>
-          Add Note
-        </button>
-        <button className="deleteButton" onClick={() => deleteLane(laneId)}>
-          Remove Lane
-        </button>
-      </div>
-
-      <style jsx>{`
-        .lane {
-          height: calc(100vh - 105px);
-          min-width: 300px;
-          width: 300px;
-          margin: 0 10px;
-        }
-
-        .lane:first-child {
-          margin-left: 0;
-        }
-
-        :global(.laneName span.value) {
-          font-size: 24px;
-          font-weight: bold;
-        }
-
-        .laneButtons {
-          padding: 10px 0;
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .deleteButton:hover {
-          background: #f73e44;
-        }
-      `}</style>
-    </div>
-  );
-};
+    );
+  }
+}
 
 Lane.propTypes = {
   lane: PropTypes.object,

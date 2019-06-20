@@ -1,4 +1,7 @@
 import callApi from '../../util/apiCaller';
+import { normalize } from 'normalizr';
+import { lanes } from '../../util/schema';
+import { createNotes } from '../Note/NoteActions';
 
 // Export Constants
 export const CREATE_LANE = 'CREATE_LANE';
@@ -7,6 +10,28 @@ export const DELETE_LANE = 'DELETE_LANE';
 export const EDIT_LANE = 'EDIT_LANE';
 export const CREATE_LANES = 'CREATE_LANES';
 export const DELETE_NOTE_FROM_LANE = 'DELETE_NOTE_FROM_LANE';
+export const MOVE_BETWEEN_LANES = 'MOVE_BETWEEN_LANES';
+
+// Export actions
+export function fetchLanes() {
+  return dispatch => {
+    return callApi('lanes').then(res => {
+      const normalized = normalize(res.lanes, lanes);
+      const { lanes: normalizedLanes, notes } = normalized.entities;
+      dispatch(createNotes(notes));
+      dispatch(createLanes(normalizedLanes));
+    });
+  };
+}
+
+export function moveBetweenLanes(targetLaneId, noteId, sourceLaneId) {
+  return {
+    type: MOVE_BETWEEN_LANES,
+    targetLaneId,
+    noteId,
+    sourceLaneId,
+  };
+}
 
 export function createLanes(lanesData) {
   return {
