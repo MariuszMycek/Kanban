@@ -29,7 +29,9 @@ class Lane extends React.Component {
             editing={lane.editing}
             value={lane.name}
             onValueClick={() => editLane(laneId)}
-            onUpdate={name => updateLane({ ...lane, name, editing: false })}
+            onUpdate={name => {
+              updateLane({ ...lane, name, editing: false });
+            }}
           />
         </div>
         <NotesContainer notes={laneNotes} laneId={laneId} />

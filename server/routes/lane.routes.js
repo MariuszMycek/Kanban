@@ -80,6 +80,6 @@ Example response:
 */
 router.route('/lanes/:laneId').put(LaneController.renameLane);
 
-router.route('/lanes/moveWithin').patch(LaneController.moveWithin);
+router.route('/lanes/moveNote').patch(LaneController.moveNote);
 
 export default router;

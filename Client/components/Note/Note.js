@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { DragSource, DropTarget } from 'react-dnd';
 import ItemTypes from '../Kanban/itemTypes';
 import { compose } from 'redux';
-import { moveWithinLaneRequest } from './NoteActions';
 
 class Note extends React.Component {
   constructor(props) {
@@ -46,40 +45,22 @@ Note.propTypes = {
   children: PropTypes.any,
 };
 
-const sourceNoteProps = {
-  noteId: null,
-  laneId: null,
-};
-const targetNoteProps = {
-  noteId: null,
-  laneId: null,
-};
+let notesDataForServerUpdate = [];
 
 const noteSource = {
   beginDrag(props) {
-    sourceNoteProps.noteId = props.id;
-    sourceNoteProps.laneId = props.laneId;
-
-    targetNoteProps.noteId = props.id;
-    targetNoteProps.laneId = props.laneId;
+    notesDataForServerUpdate = [...props.lanes];
     return {
       id: props.id,
       laneId: props.laneId,
     };
   },
   isDragging(props, monitor) {
-    sourceNoteProps.noteId = monitor.getItem().id;
-    sourceNoteProps.laneId = monitor.getItem().laneId;
-
-    targetNoteProps.laneId = props.laneId;
+    notesDataForServerUpdate = [...props.lanes];
     return props.id === monitor.getItem().id;
   },
   endDrag(props, monitor) {
-    props.moveWithinLaneRequest(
-      sourceNoteProps.laneId,
-      targetNoteProps.noteId,
-      sourceNoteProps.noteId
-    );
+    props.moveNoteRequest(notesDataForServerUpdate);
   },
 };
 
@@ -88,8 +69,6 @@ const noteTarget = {
     const sourceProps = monitor.getItem();
 
     if (targetProps.id !== sourceProps.id) {
-      targetNoteProps.noteId = targetProps.id;
-
       targetProps.moveWithinLane(
         targetProps.laneId,
         targetProps.id,

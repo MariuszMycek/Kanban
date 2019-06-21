@@ -1,4 +1,6 @@
 import callApi from '../../util/apiCaller';
+import { deleteNoteFromLane } from '../Lane/LaneActions';
+import { handler } from '../../util/errorActions';
 
 // Export Constants
 export const CREATE_NOTE = 'CREATE_NOTE';
@@ -7,8 +9,6 @@ export const DELETE_NOTE = 'DELETE_NOTE';
 export const EDIT_NOTE = 'EDIT_NOTE';
 export const CREATE_NOTES = 'CREATE_NOTES';
 export const MOVE_WITHIN_LANE = 'MOVE_WITHIN_LANE';
-
-import { deleteNoteFromLane, fetchLanes } from '../Lane/LaneActions';
 
 // Export Actions
 export function createNotes(notesData) {
@@ -81,15 +81,8 @@ export function moveWithinLane(laneId, targetId, sourceId) {
   };
 }
 
-export function moveWithinLaneRequest(laneId, targetId, sourceId) {
+export function moveNoteRequest(lanes) {
   return dispatch => {
-    return callApi('lanes/moveWithin', 'patch', {
-      laneId,
-      targetId,
-      sourceId,
-    });
-    // .then(() => {
-    //   // dispatch(moveWithinLane(laneId, targetId, sourceId));
-    // })
+    return dispatch(handler(callApi('lanes/moveNote', 'PATCH', { lanes })));
   };
 }

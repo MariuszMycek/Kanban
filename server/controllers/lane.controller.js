@@ -39,17 +39,24 @@ export function deleteLane(req, res) {
     } else if (!lane) {
       res.status(404).end();
     } else {
-      lane.notes.forEach(note => {
-        Note.findOne({ _id: note._id }).exec((err, note) => {
+      lane
+        .remove((err, lane) => {
           if (err) {
             res.status(500).send(err);
+          } else {
+            res.json(lane);
           }
-          note.remove();
+        })
+        .then(lane => {
+          lane.notes.forEach(note => {
+            Note.findOne({ _id: note._id }).exec((err, note) => {
+              if (err) {
+                res.status(500).send(err);
+              }
+              note.remove();
+            });
+          });
         });
-      });
-      lane.remove(() => {
-        res.status(200).end();
-      });
     }
   });
 }
@@ -74,47 +81,23 @@ export function renameLane(req, res) {
     });
   }
 }
-
-// Move note within lane
-export function moveWithin(req, res) {
-  const { targetId, sourceId, laneId } = req.body;
-
-  if (!laneId || !targetId || !sourceId) {
-    res.status(403).end();
+// Move notes
+export function moveNote(req, res) {
+  const { lanes } = req.body;
+  if (!req.body) {
+    res.status(415).end();
   } else {
-    Lane.findOne({ id: laneId })
-      .exec((err, lane) => {
-        if (err || !lane) {
+    lanes.forEach(lane => {
+      Lane.findByIdAndUpdate(
+        lane._id,
+        { $set: { notes: lane.notes } },
+        { new: true }
+      ).exec((err, updatedLane) => {
+        if (err) {
           res.status(500).send(err);
-        } else {
-          const newNotes = () => {
-            const sourceIndex = lane.notes.findIndex(
-              note => note.id === sourceId
-            );
-            const targetIndex = lane.notes.findIndex(
-              note => note.id === targetId
-            );
-            const arrayCopy = [...lane.notes];
-
-            arrayCopy.splice(
-              targetIndex,
-              0,
-              arrayCopy.splice(sourceIndex, 1)[0]
-            );
-            return arrayCopy;
-          };
-
-          lane.notes = newNotes();
         }
-      })
-      .then(lane =>
-        lane.save((err, newLane) => {
-          if (err) {
-            res.status(500).send(err);
-          } else {
-            res.status(204).end();
-          }
-        })
-      );
+      });
+    });
+    res.json('ok');
   }
 }

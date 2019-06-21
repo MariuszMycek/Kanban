@@ -11,7 +11,9 @@ const Notes = props => {
     updateNote,
     deleteNote,
     moveWithinLaneRequest,
-    moveWithinLane
+    moveWithinLane,
+    lanes,
+    moveNoteRequest
   } = props;
 
   return (
@@ -26,6 +28,8 @@ const Notes = props => {
           moveWithinLaneRequest={moveWithinLaneRequest}
           laneId={laneId}
           dbId={note._id}
+          lanes={lanes}
+          moveNoteRequest={moveNoteRequest}
         >
           <Edit
             editing={note.editing}
