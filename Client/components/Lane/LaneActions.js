@@ -18,6 +18,7 @@ export function fetchLanes() {
     return callApi('lanes').then(res => {
       const normalized = normalize(res.lanes, lanes);
       const { lanes: normalizedLanes, notes } = normalized.entities;
+
       dispatch(createNotes(notes));
       dispatch(createLanes(normalizedLanes));
     });

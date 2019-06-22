@@ -47,6 +47,4 @@ Example response:
 */
 router.route('/notes/:noteId').put(NoteController.editNote);
 
-
-
 export default router;

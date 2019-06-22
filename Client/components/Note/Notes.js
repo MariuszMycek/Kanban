@@ -13,7 +13,7 @@ const Notes = props => {
     moveWithinLaneRequest,
     moveWithinLane,
     lanes,
-    moveNoteRequest
+    moveNoteRequest,
   } = props;
 
   return (
@@ -45,7 +45,6 @@ const Notes = props => {
         .notes {
           height: calc(100% - 83px);
           overflow-y: auto;
-          background: #dfe1e6;
           padding: 0;
           margin: 0;
         }

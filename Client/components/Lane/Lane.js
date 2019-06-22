@@ -46,10 +46,13 @@ class Lane extends React.Component {
 
         <style jsx>{`
           .lane {
-            height: calc(100vh - 105px);
+            height: calc(100vh - 110px);
             min-width: 300px;
             width: 300px;
             margin: 0 10px;
+            background: #dfe1e6;
+            border-radius: 4px;
+            margin-bottom: 5px;
           }
 
           .lane:first-child {
@@ -59,12 +62,17 @@ class Lane extends React.Component {
           :global(.laneName span.value) {
             font-size: 24px;
             font-weight: bold;
+            padding-left: 10px;
+            cursor:pointer;
           }
 
           .laneButtons {
             padding: 10px 0;
             display: flex;
             justify-content: space-between;
+          }
+          .laneButtons button {
+            margin: 0 15px;
           }
 
           .deleteButton:hover {

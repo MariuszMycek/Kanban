@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "nodemon server/index.js",
+    "start": "node server/index.js",
     "start:next": "next start",
     "lint": "eslint components server"
   },

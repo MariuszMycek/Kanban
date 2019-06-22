@@ -80,6 +80,42 @@ Example response:
 */
 router.route('/lanes/:laneId').put(LaneController.renameLane);
 
+// Move note
+// Query format: localhost:3000/lanes/moveNote
+/* Example request body - required. 
+It is array with objects. Important: notes array has to contain ObjectIds of notes.
+[
+  {
+    _id: '5d0e113be51d041f64776f59',
+    id: '1dfa2671-0d99-40fd-9ed3-9587424ae857',
+    name: 'New Lane',
+    __v: 4,
+    notes: [
+      '5d0e113de51d041f64776f5c',
+      '5d0e113fe51d041f64776f61',
+      '5d0e113ee51d041f64776f5e',
+    ],
+  },
+  {
+    _id: '5d0e113be51d041f64776f5a',
+    id: '7afda62a-b6f2-4c77-95c7-c8142c629567',
+    name: 'New Lane',
+    __v: 2,
+    notes: [
+      '5d0e113ee51d041f64776f5d',
+      '5d0e113ee51d041f64776f5f',
+      '5d0e113fe51d041f64776f60',
+    ],
+  },
+  {
+    _id: '5d0e113ce51d041f64776f5b',
+    id: 'aa829615-5884-4ab5-b8cb-8635848ad02b',
+    name: 'New Lane',
+    __v: 1,
+    notes: ['5d0e1140e51d041f64776f62'],
+  },
+];
+*/
 router.route('/lanes/moveNote').patch(LaneController.moveNote);
 
 export default router;

@@ -40,20 +40,20 @@ export function deleteLane(req, res) {
       res.status(404).end();
     } else {
       lane
-        .remove((err, lane) => {
+        .remove((err, deletedLane) => {
           if (err) {
             res.status(500).send(err);
           } else {
-            res.json(lane);
+            res.json(deletedLane);
           }
         })
-        .then(lane => {
-          lane.notes.forEach(note => {
-            Note.findOne({ _id: note._id }).exec((err, note) => {
+        .then(resLane => {
+          resLane.notes.forEach(note => {
+            Note.findOne({ _id: note._id }).exec((err, newNote) => {
               if (err) {
                 res.status(500).send(err);
               }
-              note.remove();
+              newNote.remove();
             });
           });
         });
@@ -92,7 +92,7 @@ export function moveNote(req, res) {
         lane._id,
         { $set: { notes: lane.notes } },
         { new: true }
-      ).exec((err, updatedLane) => {
+      ).exec(err => {
         if (err) {
           res.status(500).send(err);
         }

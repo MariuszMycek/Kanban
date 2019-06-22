@@ -39,13 +39,11 @@ export function deleteNote(req, res) {
       if (err || !note) {
         res.status(500).send(err);
       } else {
-        Lane.update({ $pull: { notes: { $in: [note._id] } } }).exec(
-          (err, lane) => {
-            if (err) {
-              res.status(500).send(err);
-            }
+        Lane.update({ $pull: { notes: { $in: [note._id] } } }).exec(err => {
+          if (err) {
+            res.status(500).send(err);
           }
-        );
+        });
       }
     })
     .then(note => {
