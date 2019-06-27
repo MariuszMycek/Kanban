@@ -4,7 +4,8 @@
     "dev": "node server/index.js -p $PORT",
     "prestart": "next build",
     "build": "next build",
-    "start": "NODE_ENV=production node server/index.js -p $PORT",
+    "start": "node server/index.js -p $PORT",
+    "start_windows": "set NODE_ENV=production&&node server/index.js -p $PORT",
     "start:next": "next start",
     "now-build": "next build",
     "lint": "eslint components server"

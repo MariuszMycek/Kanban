@@ -46,7 +46,7 @@ export function deleteNote(req, res) {
         });
       }
     })
-    .then(note => {
+    .exec(note => {
       note.remove(err => {
         if (err) {
           res.status(500).send(err);
