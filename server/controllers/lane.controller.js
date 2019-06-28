@@ -39,16 +39,11 @@ export function deleteLane(req, res) {
     } else if (!lane) {
       res.status(404).end();
     } else {
-      lane
-        .remove((err, deletedLane) => {
-          if (err) {
-            res.status(500).send(err);
-          } else {
-            res.json(deletedLane);
-          }
-        })
-        .then(resLane => {
-          resLane.notes.forEach(note => {
+      lane.remove((err, deletedLane) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          deletedLane.notes.forEach(note => {
             Note.findOne({ _id: note._id }).exec((err, newNote) => {
               if (err) {
                 res.status(500).send(err);
@@ -56,7 +51,9 @@ export function deleteLane(req, res) {
               newNote.remove();
             });
           });
-        });
+          res.json(deletedLane);
+        }
+      });
     }
   });
 }

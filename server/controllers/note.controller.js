@@ -30,30 +30,29 @@ export function addNote(req, res) {
   });
 }
 
-// Delete Note from Notes
 export function deleteNote(req, res) {
   const { noteId } = req.params;
 
-  Note.findOne({ id: noteId })
-    .exec((err, note) => {
-      if (err || !note) {
-        res.status(500).send(err);
-      } else {
-        Lane.update({ $pull: { notes: { $in: [note._id] } } }).exec(err => {
+  Note.findOne({ id: noteId }).exec(async (err, foundNote) => {
+    if (err || !foundNote) {
+      res.status(500).send(err);
+    } else {
+      await Lane.updateOne({ $pull: { notes: { $in: [foundNote._id] } } }).exec(
+        err => {
           if (err) {
             res.status(500).send(err);
           }
-        });
-      }
-    })
-    .exec(note => {
-      note.remove(err => {
+        }
+      );
+      foundNote.remove((err, note) => {
         if (err) {
           res.status(500).send(err);
+        } else {
+          res.status(200).send(note);
         }
-        res.status(200).send(note);
       });
-    });
+    }
+  });
 }
 
 // Edit note

@@ -1,7 +1,7 @@
 const express = require('express');
 const next = require('next');
 const bodyParser = require('body-parser');
-const dev = process.env.NODE_DEV !== 'production'; // true false
+const dev = process.env.NODE_ENV !== 'production'; // true false
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler(); // part of next config
 const mongoose = require('mongoose');
