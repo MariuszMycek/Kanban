@@ -2,7 +2,8 @@
   "name": "create-next-example-app",
   "scripts": {
     "dev": "node server/index.js -p $PORT",
-    "prestart": "next build",
+    "postinstall": "npm run build",
+    "build": "next build",
     "start": "NODE_ENV=production node server/index.js -p $PORT",
     "start_windows": "cross-env NODE_ENV=production node server/index.js -p $PORT",
     "lint": "eslint components server"
