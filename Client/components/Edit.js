@@ -21,13 +21,13 @@ export default class Edit extends Component {
 
   renderDelete = () => {
     return (
-      <div className="delete-wrapper">
+      <div className="deleteWrapper">
         <button className="delete" onClick={this.props.onDelete}>
           x
         </button>
 
         <style jsx>{`
-          .delete-wrapper {
+          .deleteWrapper {
             position: relative;
             display: none;
           }
@@ -66,8 +66,8 @@ export default class Edit extends Component {
             padding: 5px;
             font-size: 14px;
           }
-          
-          :global(.value-wrapper:hover .delete-wrapper) {
+
+          :global(.value-wrapper:hover .deleteWrapper) {
             display: block;
           }
         `}</style>
@@ -77,7 +77,7 @@ export default class Edit extends Component {
 
   renderEdit = () => {
     return (
-      <div>
+      <div className="textareaWrapper">
         <textarea
           autoFocus
           defaultValue={this.props.value}
@@ -87,6 +87,11 @@ export default class Edit extends Component {
         />
 
         <style jsx>{`
+          .textareaWrapper {
+            display: flex;
+            justify-content: center;
+          }
+
           .textarea {
             width: 100%;
             height: 70px;
@@ -94,6 +99,15 @@ export default class Edit extends Component {
             resize: vertical;
             border-radius: 3px;
             box-sizing: border-box;
+          }
+
+          :global(.laneName .textarea) {
+            height: 32px;
+            margin: 5px 10px 1px;
+            resize: none;
+            font-size: 14px;
+            padding-top: 7px;
+            padding-left: 10px;
           }
 
           .textarea:focus {

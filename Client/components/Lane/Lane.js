@@ -23,7 +23,6 @@ class Lane extends React.Component {
     return connectDropTarget(
       <div className="lane">
         <div className="laneHeader">
-          <div className="laneAddNote" />
           <Edit
             className="laneName"
             editing={lane.editing}
@@ -63,7 +62,9 @@ class Lane extends React.Component {
             font-size: 24px;
             font-weight: bold;
             padding-left: 10px;
-            cursor:pointer;
+            cursor: pointer;
+            max-height: 28px;
+            overflow: auto;
           }
 
           .laneButtons {
